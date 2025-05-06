@@ -147,31 +147,126 @@ Algumas das ferramentas mais úteis para um pentest completo são:
 
 ## Exemplos de Resultado dos Testes Realizados
 
-1. **PortScan (`scanme.nmap.org`, portas 1–100)**
+1. **PortScan (`scanme.nmap.org`, portas 1–25)**
 
-   * Open: 22 (SSH), 80 (HTTP), 9929 (nping-echo)
-   * Filtered: demais portas
+   ````
+   Iniciando escaneamento em 45.33.32.156 (TCP) - 2025-05-05 22:14:43.870227
+   
+   Escaneando portas de 1 a 25...
+
+   Resultados do escaneamento:
+   ------------------------------------------------------------
+   Porta    Estado       Protocolo  Serviço         Banner/SO
+   ------------------------------------------------------------
+   1        filtered     TCP        Unknown         -
+   2        filtered     TCP        Unknown         -
+   3        filtered     TCP        Unknown         -
+   4        filtered     TCP        Unknown         -
+   5        filtered     TCP        Unknown         -
+   6        filtered     TCP        Unknown         -
+   7        filtered     TCP        Echo            -
+   8        filtered     TCP        Unknown         -
+   9        filtered     TCP        Discard         -
+   10       filtered     TCP        Unknown         -
+   11       filtered     TCP        Unknown         -
+   12       filtered     TCP        Unknown         -
+   13       filtered     TCP        Daytime         -
+   14       filtered     TCP        Unknown         -
+   15       filtered     TCP        Unknown         -
+   16       filtered     TCP        Unknown         -
+   17       filtered     TCP        QOTD            -
+   18       filtered     TCP        Unknown         -
+   19       filtered     TCP        Chargen         -
+   20       filtered     TCP        FTP-DATA        -
+   21       filtered     TCP        FTP             -
+   22       open         TCP        SSH             SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
+   23       filtered     TCP        Telnet          -
+   24       filtered     TCP        Unknown         -
+   25       open         TCP        SMTP            -
+   ------------------------------------------------------------
+   ````
 
 2. **WHOIS Lookup**
-
-   * Teste: `google.com`
-   * Campos retornados: registrar, creation\_date, expiration\_date, name\_servers, etc.
+   ````
+   domain_name: GOOGLE.COM
+   registrar: MarkMonitor, Inc.
+   registrar_url: http://www.markmonitor.com
+   reseller: None
+   whois_server: whois.markmonitor.com
+   referral_url: None
+   updated_date: [datetime.datetime(2019, 9, 9, 15, 39, 4), datetime.datetime(2024, 8, 2, 2, 17, 33, tzinfo=datetime.timezone.utc)]
+   creation_date: [datetime.datetime(1997, 9, 15, 4, 0), datetime.datetime(1997, 9, 15, 7, 0, tzinfo=datetime.timezone.utc)]  
+   expiration_date: [datetime.datetime(2028, 9, 14, 4, 0), datetime.datetime(2028, 9, 13, 7, 0, tzinfo=datetime.timezone.utc)]
+   name_servers: ['NS1.GOOGLE.COM', 'NS2.GOOGLE.COM', 'NS3.GOOGLE.COM', 'NS4.GOOGLE.COM']
+   status: ['clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited', 'clientTransferProhibited https://icann.org/epp#clientTransferProhibited', 'clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited', 'serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited', 'serverTransferProhibited https://icann.org/epp#serverTransferProhibited', 'serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited', 'clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)', 'clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)', 'clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)', 'serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)', 'serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)', 'serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)']
+   emails: ['abusecomplaints@markmonitor.com', 'whoisrequest@markmonitor.com']
+   dnssec: unsigned
+   name: None
+   org: Google LLC
+   address: None
+   city: None
+   state: CA
+   registrant_postal_code: None
+   country: US
+   ````
 
 3. **DNS Enumeration**
+   ````
+   A records para wikimedia.org:
+   - 195.200.68.224
+   MX records para wikimedia.org:
+      Erro: The DNS query name does not exist: wikimedia.org.
 
-   * `google.com`: A record(172.217.29.46), NS(ns2.google.com., ns1.google.com.,...).
-   * `wikipedia.org`: A record, NS e TXT; MX ausente (NXDOMAIN).
-   * `wikimedia.org.`: A(195.200.68.224), NS(ns0.wikimedia.org.,...).
+   NS records para wikimedia.org:
+   - ns0.wikimedia.org.
+   - ns1.wikimedia.org.
+   - ns2.wikimedia.org.
+
+   TXT records para wikimedia.org:
+      Erro: The DNS query name does not exist: wikimedia.org.
+   ````
 
 4. **Subdomain Enumeration**
 
-   * `github.com`: 
-        - www.github.com -> 20.201.28.151
-        - test.github.com -> 192.0.2.1
+   ````
+   Procurando subdomínios em github.com...
+   www.github.com -> 20.201.28.151
+   test.github.com -> 192.0.2.1
+   ````
 
 5. **WAF Detection**
 
-   * `google.com`: sem WAF detectado.
-   * `shopify.com`: Cloudflare WAF detectado.
+   ````
+                     ?              ,.   (   .      )        .      "
+            __        ??          ("     )  )'     ,'        )  . (`     '`
+      (___()'`;   ???          .; )  ' (( (" )    ;(,     ((  (  ;)  "  )")
+      /,___ /`                 _"., ,._'_.,)_(..,( . )_  _' )_') (. _..( ' )
+      \\   \\                 |____|____|____|____|____|____|____|____|____|
+
+                                 ~ WAFW00F : v2.3.1 ~
+                     ~ Sniffing Web Application Firewalls since 2014 ~
+
+   [*] Checking https://google.com
+   [+] Generic Detection results:
+   [-] No WAF detected by the generic detection
+   [~] Number of requests: 7
+
+   ````
+
+   ````
+
+                     ?              ,.   (   .      )        .      "
+               __        ??          ("     )  )'     ,'        )  . (`     '`
+         (___()'`;   ???          .; )  ' (( (" )    ;(,     ((  (  ;)  "  )")
+         /,___ /`                 _"., ,._'_.,)_(..,( . )_  _' )_') (. _..( ' )
+         \\   \\                 |____|____|____|____|____|____|____|____|____|
+
+                                    ~ WAFW00F : v2.3.1 ~
+                        ~ Sniffing Web Application Firewalls since 2014 ~
+
+      [*] Checking https://www.shopify.com
+      [+] The site https://www.shopify.com is behind Cloudflare (Cloudflare Inc.) WAF.
+      [~] Number of requests: 2
+   ````
 
 ---
