@@ -1,0 +1,12 @@
+certifi==2025.4.26
+charset-normalizer==3.4.2
+dnspython==2.7.0
+idna==3.10
+pluginbase==1.0.1
+PySocks==1.7.1
+python-dateutil==2.9.0.post0
+python-whois==0.9.5
+requests==2.32.3
+six==1.17.0
+urllib3==2.4.0
+wafw00f==2.3.1
